@@ -1,0 +1,39 @@
+repos:
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.9.0
+    hooks:
+      - id: mypy
+        name: Running mypy -- type checker
+        # TODO: Add every useful lib to additional_dependencies ?? Do we have to do the same for each pre-commit config ?
+        additional_dependencies: ['fastapi', 'pydantic', 'uvicorn']
+  - repo: https://github.com/psf/black
+    rev: 24.3.0
+    hooks:
+      - id: black
+        name: Running black -- code checker
+        args: [--check]
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        name: Running isort -- imports sorter
+        args: ['--profile', 'black', '--check-only']
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.3.5
+    hooks:
+      - id: ruff
+        name: Runnning ruff -- code checker
+        args: ['--exit-non-zero-on-fix']
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-ast
+      - id: check-added-large-files
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: trailing-whitespace
+      - id: check-docstring-first
+      - id: check-yaml
+      - id: check-json
