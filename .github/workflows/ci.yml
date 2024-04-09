@@ -1,0 +1,45 @@
+name: Python SDK quality checks and unit tests
+
+on:
+  push:
+    branches: [ '*' ]
+  pull_request:
+    branches: [ '*' ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Install pipenv
+      run: |
+        python -m pip install --upgrade pipenv wheel
+
+    - id: cache-pipenv
+      uses: actions/cache@v1
+      with:
+        path: ~/.local/share/virtualenvs
+        key: ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
+
+    - name: Install dependencies
+      if: steps.cache-pipenv.outputs.cache-hit != 'true'
+      run: |
+        pipenv install --deploy --categories="dev-packages,docs-packages"
+
+    - name: Launch quality checks
+      run: |
+        pipenv run mypy
+        pipenv run isort-check
+        pipenv run black-check
+        pipenv run ruff
+
+    - name: Launch tests with pytest
+      run: |
+        pipenv run pytest
