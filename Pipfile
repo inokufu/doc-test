@@ -1,0 +1,32 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[scripts]
+start = "uvicorn app.main:app"
+dev = "uvicorn app.main:app --reload"
+test = "pytest tests"
+lint = "mypy app tests && isort app tests --check-only && black app tests --check && ruff app tests"
+
+[packages]
+uvicorn = "*"
+fastapi = "*"
+pydantic = "*"
+loguru = "*"
+
+[dev-packages]
+pytest = "*"
+ruff = "*"
+mypy = "*"
+isort = "*"
+black = "*"
+pre-commit = "*"
+
+[docs-packages]
+mkdocs = "*"
+mkdocs-material = "*"
+mike = "*"
+
+[requires]
+python_version = "3.11"
