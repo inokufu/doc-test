@@ -25,7 +25,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pipenv install
+        pipenv install --categories="packages,dev-packages,docs-packages"
 
     - name: Launch quality checks
       run: |
