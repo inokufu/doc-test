@@ -31,7 +31,7 @@ jobs:
     - name: Install dependencies
       if: steps.cache-pipenv.outputs.cache-hit != 'true'
       run: |
-        pipenv install --deploy --categories="dev-packages,docs-packages"
+        pipenv install --deploy
 
     - name: Launch quality checks
       run: |
