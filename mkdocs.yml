@@ -1,0 +1,58 @@
+site_name: Inokufu Mk Docs - Test
+site_url: https://docs.inokufu.com/
+repo_url: https://github.com/inokufu/doc-test
+nav:
+  - Home: index.md
+  - Code: code.md
+  - About: about.md
+theme:
+  name: material
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/theme-light-dark
+        name: Switch to light mode
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to system preference
+  favicon: img/favicon.ico
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.top
+    - navigation.tabs
+    - content.code.copy
+    - navigation.footer
+plugins:
+  - mike:
+extra:
+  version:
+    provider: mike
+  social:
+    - icon: fontawesome/brands/github 
+      link: https://github.com/inokufu
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/inokufu/
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+extra_css:
+  - stylesheets/extra.css
