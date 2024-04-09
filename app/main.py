@@ -1,8 +1,10 @@
 from typing import Optional
+
 from fastapi import FastAPI
-from app.models import Item, Items
+
 from app.database import item, items
 from app.log import logger
+from app.models import Item, Items
 
 app = FastAPI()
 

@@ -1,5 +1,7 @@
 from typing import List
+
 from pydantic import BaseModel, Field, RootModel
+
 
 class Item(BaseModel):
     name: str = Field(..., title="The name of the item", min_length=1, max_length=100)
