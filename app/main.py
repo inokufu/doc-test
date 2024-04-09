@@ -40,7 +40,7 @@ async def read_items():
 )
 async def read_item_by_id(item_id: int):
     try:
-        return items[item_id]
+        return items.root[item_id]
     except IndexError:
         logger.error(f"Item with ID {item_id} not found")
         return None
