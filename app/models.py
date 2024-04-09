@@ -9,5 +9,6 @@ class Item(BaseModel):
     price: float = Field(..., gt=0, description="The price must be greater than zero")
     tax: float = Field(None, title="Tax rate")
 
+
 class Items(RootModel):
     root: List[Item]
