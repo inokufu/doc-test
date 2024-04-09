@@ -2,7 +2,7 @@ from typing import Optional
 
 from fastapi import FastAPI
 
-from app.database import item, items
+from app.database import items
 from app.log import logger
 from app.models import Item, Items
 
