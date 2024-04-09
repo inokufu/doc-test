@@ -4,16 +4,16 @@ verify_ssl = true
 name = "pypi"
 
 [scripts]
-start = "uvicorn app.main:app"
-dev = "uvicorn app.main:app --reload"
-test = "pytest tests"
-mypy = "mypy app tests"
-isort = "isort app tests"
-isort-check = "isort app tests --check-only"
-black = "black app tests"
-black-check = "black app tests --check"
-ruff = "ruff check app tests"
-ruff-fix = "ruff check app tests --fix"
+start = "python -m uvicorn app.main:app"
+dev = "python -m uvicorn app.main:app --reload"
+test = "python -m pytest tests"
+mypy = "python -m mypy app tests"
+isort = "python -m isort app tests"
+isort-check = "python -m isort app tests --check-only"
+black = "python -m black app tests"
+black-check = "python -m black app tests --check"
+ruff = "python -m ruff check app tests"
+ruff-fix = "python -m ruff check app tests --fix"
 
 [packages]
 uvicorn = "*"
