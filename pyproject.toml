@@ -1,0 +1,55 @@
+[tool.poetry]
+name = "doc-test"
+version = "0.0.1"
+description = ""
+authors = ["Guillaume Lefebvre <guillaume@inokufu.com>"]
+readme = "README.md"
+package-mode = false
+packages = [
+    { include = "app" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+uvicorn = "*"
+fastapi = "*"
+pydantic = "*"
+loguru = "*"
+httpx = "*"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+ruff = "*"
+mypy = "*"
+isort = "*"
+black = "*"
+pre-commit = "*"
+
+[tool.poetry.group.docs]
+optional = true
+
+[tool.poetry.group.docs.dependencies]
+mkdocs = "*"
+mkdocs-material = "*"
+mike = "*"
+
+[tool.poetry.scripts]
+start = "app.main:start"
+# NOTE: Seems hard to run script like we used to in pipenv. Conclusion might be : pipenv is better for our use case ?
+# --> Otherwise, we should maybe use external scripts which will be easier to track, in a scripts/ folder, and would be easily be ran by github actions as well
+# test = "pytest ."
+# mypy = "mypy app tests"
+# isort = "isort app tests"
+# isort-check = "isort app tests --check-only"
+# black = "black app tests"
+# black-check = "black app tests --check"
+# ruff = "ruff check app tests"
+# ruff-fix = "ruff check app tests --fix"
+# ruff-format = "ruff format check app tests --check"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

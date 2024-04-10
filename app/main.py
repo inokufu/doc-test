@@ -1,6 +1,7 @@
 from typing import Optional
 
 from fastapi import FastAPI
+from uvicorn import run as uvicorn_run
 
 from app.database import items
 from app.log import logger
@@ -49,3 +50,8 @@ async def read_item_by_id(item_id: int):
     except IndexError:
         logger.error(f"Item with ID {item_id} not found")
         return None
+
+
+def start():
+    """Launched with `poetry run start` at root level"""
+    uvicorn_run("app.main:app", host="0.0.0.0", port=8000, reload=True)

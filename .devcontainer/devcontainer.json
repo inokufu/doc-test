@@ -13,6 +13,6 @@
         }
     },
     "forwardPorts": [],
-    "postCreateCommand": "pip install pipenv && pipenv install",
+    "postCreateCommand": "pip install poetry && poetry install --with dev",
     "remoteUser": "root"
 }
