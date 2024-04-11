@@ -14,5 +14,6 @@
     },
     "forwardPorts": [],
     "postCreateCommand": "pip install pipenv && pipenv install",
-    "remoteUser": "root"
+    "remoteUser": "root",
+    "runArgs": ["--add-host=host.docker.internal:host-gateway"]
 }
