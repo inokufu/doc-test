@@ -1,51 +1,26 @@
-from typing import Optional
+from contextlib import asynccontextmanager
 
+from beanie import init_beanie
 from fastapi import FastAPI
+from motor.motor_asyncio import AsyncIOMotorClient
 
-from app.database import items
-from app.log import logger
-from app.models import Item, Items
+from app.config import settings
+from app.models.item import Item
+from app.routers.item import item_router
+from app.utils.log import init_logging, logger
 
-app = FastAPI()
-
-
-@app.post(
-    "/items/",
-    response_model=Item,
-    summary="Create an item",
-    description="Create an item with all the information",
-    response_description="The created item",
-    tags=["items"],
-)
-async def create_item(item: Item):
-    logger.info(f"Creating item: {item}")
-    return item
+init_logging()
 
 
-@app.get(
-    "/items/",
-    response_model=Items,
-    summary="Read items",
-    description="Read all items",
-    response_description="A list of all items",
-    tags=["items"],
-)
-async def read_items():
-    logger.info(f"Reading items: {items}")
-    return items
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logger.info("Application starting up")
+    client = AsyncIOMotorClient(settings.mongodb_url)
+    await init_beanie(client[settings.mongodb_name], document_models=[Item])
+    yield
+    logger.info("Application shutting down")
 
 
-@app.get(
-    "/items/{item_id}",
-    response_model=Optional[Item],
-    summary="Read an item",
-    description="Read an item by its ID",
-    response_description="The item with the ID",
-    tags=["items"],
-)
-async def read_item_by_id(item_id: int):
-    try:
-        return items.root[item_id]
-    except IndexError:
-        logger.error(f"Item with ID {item_id} not found")
-        return None
+app = FastAPI(lifespan=lifespan)
+
+app.include_router(item_router, prefix="/items", tags=["items"])
