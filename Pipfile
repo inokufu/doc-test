@@ -14,7 +14,7 @@ black = "python -m black app tests"
 black-check = "python -m black app tests --check"
 ruff = "python -m ruff check app tests"
 ruff-fix = "python -m ruff check app tests --fix"
-ruff-format = "python -m ruff format check app tests --check"
+ruff-format = "python -m ruff format app tests --check"
 
 [packages]
 uvicorn = "*"
@@ -22,6 +22,9 @@ fastapi = "*"
 pydantic = "*"
 loguru = "*"
 httpx = "*"
+pymongo = "*"
+pydantic_settings = "*"
+beanie = "*"
 
 [dev-packages]
 pytest = "*"
