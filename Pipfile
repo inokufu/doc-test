@@ -6,7 +6,9 @@ name = "pypi"
 [scripts]
 start = "python -m uvicorn app.main:app"
 dev = "python -m uvicorn app.main:app --reload"
-test = "python -m pytest ."
+test = "python -m pytest . --disable-warnings"
+test-cov = "python -m coverage run --source app -m pytest -s -rA --disable-warnings"
+test-html = "python -m coverage html"
 mypy = "python -m mypy app tests"
 isort = "python -m isort app tests"
 isort-check = "python -m isort app tests --check-only"
@@ -28,11 +30,14 @@ beanie = "*"
 
 [dev-packages]
 pytest = "*"
+pytest-asyncio = "*"
 ruff = "*"
 mypy = "*"
 isort = "*"
 black = "*"
 pre-commit = "*"
+mongomock-motor = "*"
+coverage = "*"
 
 [docs-packages]
 mkdocs = "*"
