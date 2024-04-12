@@ -7,7 +7,7 @@ on:
     branches: [ '*' ]
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository code
@@ -25,7 +25,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pipenv install --categories="packages,dev-packages,docs-packages"
+        pipenv install --categories="packages,dev-packages"
 
     - name: Launch quality checks
       run: |
@@ -33,6 +33,27 @@ jobs:
         pipenv run isort-check
         pipenv run black-check
         pipenv run ruff
+
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+        cache: 'pipenv'
+
+    - name: Install pipenv
+      run: |
+        pip install pipenv
+
+    - name: Install dependencies
+      run: |
+        pipenv install --categories="packages,dev-packages"
 
     - name: Launch tests with pytest
       run: |
